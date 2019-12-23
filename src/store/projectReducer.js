@@ -73,6 +73,16 @@ const projectReducer = (state = init, action) => {
                                     ...state,
                                     documentUser_Me: action.data
                                 }
+                case 'ADD_STATUS_SUCCESS':
+                    return{
+                        ...state,
+                        userAddedStatus:true
+                    }
+                case 'GET_STATUS_SUCCESS':
+                    return{
+                        ...state,
+                        StatusDocs:action.data.docs
+                    }
                                 default:
                                    
                                     return state;

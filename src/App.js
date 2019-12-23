@@ -10,6 +10,9 @@ import Login from './auth/login'
 import extraComponent from './auth/extraComponent';
 import Presentation from "./SeeStatus/Presentation"
 import Add from './AddPost/addPost'
+import camera from './Camera'
+import ErrorPage from './404'
+import ViewStatus from './Status/StatusSee/ViewStatus'
 class main extends Component{
   render(){
     return (
@@ -26,6 +29,9 @@ class main extends Component{
           <Route path="/extra" component = {extraComponent} />
           <Route path="/create" component={Add}/>
           <Route path="/presentation" component={Presentation} />
+          <Route path="/camera" component={camera} />
+          <Route name="status" path="/status/:id" component={ViewStatus} />
+          <Route component={ErrorPage} />
           </Switch>
           
           </div>

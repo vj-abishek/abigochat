@@ -4,13 +4,13 @@ export const getData = () => {
         getFirestore
     }) => {
         const firestore = getFirestore();
-        
-        firestore.collection('post').orderBy('timeStamp','desc').limit(5).get()
+
+        firestore.collection('post').orderBy('timeStamp', 'desc').limit(5).get()
             .then((data) => {
                 dispatch({
                     type: 'GET_DATA',
                     data
-                   
+
                 });
             })
             .catch(err => {
@@ -27,28 +27,32 @@ export const getDatas = (document) => {
         getFirestore
     }) => {
         const firestore = getFirestore();
-        
-        var lastVisible = document.docs[document.docs.length-1];
-         console.log("last", lastVisible);
+
+        var lastVisible = document.docs[document.docs.length - 1];
+        console.log("last", lastVisible);
 
 
-        firestore.collection('post').orderBy('timeStamp','desc').limit(5).startAfter(lastVisible).get()
-            .then((data) => {
-                dispatch({
-                    type: 'GET_DATA',
-                    data,
-                    push_data:true
-                });
-                data.forEach(da => {
-                    console.log(da.data())
+        if (lastVisible !== undefined) {
+            firestore.collection('post').orderBy('timeStamp', 'desc').limit(5).startAfter(lastVisible).get()
+                .then((data) => {
+                    dispatch({
+                        type: 'GET_DATA',
+                        data,
+                        push_data: true
+                    });
+                    data.forEach(da => {
+                        console.log(da.data())
+                    })
                 })
-            })
-            .catch(err => {
-                dispatch({
-                    type: 'GET_DATA_ERR',
-                    err
+                .catch(err => {
+                    dispatch({
+                        type: 'GET_DATA_ERR',
+                        err
+                    })
                 })
-            })
+        } else {
+            console.log('This ish the last row')
+        }
     }
 }
 
@@ -184,22 +188,52 @@ export const GetUsers = (uid) => {
     }
 }
 export const favorite = (data) => {
-    return(dispatch,getState,{getFirebase})  => {
+    return (dispatch, getState, {
+        getFirebase
+    }) => {
         const firestore = getFirebase().firestore();
         firestore.collection('posts').doc(data.uid).set({
-            likes:data.likes
-        },{merge:true})
-        .then(() => {
-            dispatch({type:'SET_LIKE'})
-            console.log('success  in post')
-            firestore.collection('posts').doc(data.uid).collection('likes').set({
-                user:data.user
+                likes: data.likes
+            }, {
+                merge: true
             })
             .then(() => {
-                console.log('Success in both')
+                dispatch({
+                    type: 'SET_LIKE'
+                })
+                console.log('success  in post')
+                firestore.collection('posts').doc(data.uid).collection('likes').set({
+                        user: data.user
+                    })
+                    .then(() => {
+                        console.log('Success in both')
+                    })
+                    .catch(err => console.error(err))
             })
             .catch(err => console.error(err))
+    }
+}
+export const addStatus = (data) => {
+ return(dispatch,getState,{getFirebase}) => {
+     const firebase = getFirebase().firestore()
+     firebase.collection('status').add({
+         text:data.userText,
+         backgroundColor : data.userColor,
+         timeStamp: new Date(),
+         uid:data.uid
+     })
+     .then(() => dispatch({type:'ADD_STATUS_SUCCESS'}))
+     .catch(err => dispatch({type:'ADD_STATUS_ERROR',err}))
+ }
+}
+export const getStatus = () => {
+    return (dispatch,getState,{getFirebase}) => {
+        const firebase = getFirebase().firestore()
+        firebase.collection('status').get()
+        .then(data => {
+
+            dispatch({type:'GET_STATUS_SUCCESS',data})
         })
         .catch(err => console.error(err))
-    }  
+    }
 }
