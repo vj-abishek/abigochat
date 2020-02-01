@@ -57,7 +57,7 @@ class Home extends Component {
       )
     }
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     window.addEventListener('scroll', this.handleScroll)
   }
   componentWillUnmount() {

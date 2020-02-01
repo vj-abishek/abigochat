@@ -15,7 +15,7 @@ import 'firebase/auth';
     
   }
  
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         // User is signed in.

@@ -1,6 +1,6 @@
 :root {
 
-  --avatar: url('https://scontent.fmaa1-4.fna.fbcdn.net/v/t1.0-1/p114x114/51611133_659653457771240_4750848391951417344_n.jpg?_nc_cat=109&_nc_ht=scontent.fmaa1-4.fna&oh=37d9e214e34fbf4c47a40f7d8bdc34f6&oe=5D6040AB')
+  --avatar: url('https://scontent.fmaa1-1.fna.fbcdn.net/v/t1.0-9/s960x960/51812020_659653454437907_1692357306651508736_o.jpg?_nc_cat=111&_nc_ohc=q2mlHlJbqTEAQmcINRZ7em7vD7kUnniSMC1mHZgSgqMDJgSM2PzKGgEYg&_nc_ht=scontent.fmaa1-1.fna&oh=0d45222f5f5a1f62009a1053d02e9978&oe=5E7057C6')
 }
 
 body {
@@ -617,6 +617,8 @@ footer {
     top: 8px;
     border: 2px solid #fff;
     width: 30px;
+    /* backdrop-filter: blur(20px);
+    background-color: rgba(255, 255, 255, .7); */
     height: 30px;
     border-radius: 50%;
     transform-origin: top left;
@@ -1133,4 +1135,24 @@ footer {
   flex-wrap: wrap;
   color: #ffff;
   width: 100%;
+}
+
+.TopNavModel {
+  width: 100%;
+  height: 56px;
+  padding: 5px;
+  /* line-height: 58px; */
+  backdrop-filter: saturate(180%) blur(20px);
+  background-color: rgba(255, 255, 255, .7);
+  box-shadow: 4px 1px 2px rgba(0, 0, 0, 0.1);
+
+}
+
+.cover_ofask {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  background: #ffff;
+  box-shadow: 0 4px 8px rgba(60, 65, 70, 0.2) !important;
+  border-radius: 3px;
 }
